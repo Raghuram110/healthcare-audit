@@ -1,6 +1,6 @@
 import os
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import FakeEmbeddings
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from dotenv import load_dotenv
 
@@ -8,7 +8,9 @@ load_dotenv()
 
 CHROMA_DIR = os.getenv("CHROMA_DIR", "./data/chroma")
 
-embeddings = FakeEmbeddings(size=384)
+embeddings = HuggingFaceEmbeddings(
+    model_name="all-MiniLM-L6-v2"
+)
 
 def embed_policy(policy_text: str, collection: str = "insurance"):
     splitter = RecursiveCharacterTextSplitter(

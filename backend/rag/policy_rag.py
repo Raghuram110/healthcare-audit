@@ -1,22 +1,6 @@
-import os
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_community.embeddings import FakeEmbeddings
-from langchain_community.vectorstores import Chroma
+from .policy_store import get_vectorstore
 from ..agents.llm import get_llm
-from dotenv import load_dotenv
-
-load_dotenv()
-
-CHROMA_DIR = os.getenv("CHROMA_DIR", "./data/chroma")
-
-embeddings = FakeEmbeddings(size=384)
-
-def get_vectorstore():
-    return Chroma(
-        collection_name="insurance",
-        embedding_function=embeddings,
-        persist_directory=CHROMA_DIR
-    )
 
 INSURANCE_PROMPT = """
 You are an insurance claim expert in India.
